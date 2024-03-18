@@ -12,3 +12,14 @@ export const signUp = (userInfo) => {
       payload: credentials
     }
   }
+  
+  export const logout = () => ({
+    type: 'LOGOUT',
+  });
+
+  export const updateRegistrationsOnRefresh = (latestRegistrations) => {
+    return {
+      type: 'UPDATE_REGISTRATIONS_ON_REFRESH',
+      payload: latestRegistrations
+    }
+  }

@@ -42,7 +42,9 @@ function SearchBox({ handleFetchLaunchesData }) {
 const styles = StyleSheet.create({
   input: {
     height: 40,
-    margin: 12,
+    marginTop: 10,
+    // width: 300,
+    marginBottom: 20,
     borderWidth: 1,
     padding: 10,
   },

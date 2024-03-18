@@ -1,18 +1,19 @@
-import SearchBox from './SearchBox.js';
-import DropDownFilter from './DropDownFilter.js';
+import SearchBox from './Component/SearchBox.js';
+import DropDownFilter from './Component/DropDownFilter.js';
 import { DataTable } from 'react-native-paper';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, Image } from 'react-native';
-import ErrorState from './ErrorState.js';
-export default function SignedInExperience() {
+import ErrorState from './Component/ErrorState.js';
+import Card from './Component/Card.js';
+import { SafeAreaView } from 'react-native-web';
+export default function SpaceXLauchList() {
     const [launchesList, setLaunchesData] = useState([]);
     const [filterValuesList, setFilterValueList] = useState([]);
     const [launchesDataBackup, setlaunchesDataBackup] = useState([]);
     const [showErrorState, setShowErrorState] = useState(false);
     const [filterInfo, setFilterInfo] = useState({});
     // {"launch_success": true, "launch_year": "2006"}
-
 
 
     useEffect(() => {
@@ -44,15 +45,21 @@ export default function SignedInExperience() {
         let api = 'https://api.spacexdata.com/v3/launches';
         if (filterBy && value) {
             let tempFilterInfo = JSON.parse(JSON.stringify(filterInfo));
-            tempFilterInfo[filterBy] = value;
-            setFilterInfo(tempFilterInfo)
-            for (let i = 0; i < Object.keys(tempFilterInfo).length; i++) {
-                if (i == 0)
-                    api += '?'
-                else
-                    api += '&'
-                api += Object.keys(tempFilterInfo)[i] + '=' + tempFilterInfo[Object.keys(tempFilterInfo)[i]];
+            if (value == 'None') {
+            delete tempFilterInfo[filterBy];
             }
+            else{
+                tempFilterInfo[filterBy] = value;
+            }
+            setFilterInfo(tempFilterInfo)
+            
+                for (let i = 0; i < Object.keys(tempFilterInfo).length; i++) {
+                    if (i == 0)
+                        api += '?'
+                    else
+                        api += '&'
+                    api += Object.keys(tempFilterInfo)[i] + '=' + tempFilterInfo[Object.keys(tempFilterInfo)[i]];
+                }
         }
 
         axios.get(api)
@@ -87,20 +94,39 @@ export default function SignedInExperience() {
         fetchLaunchesData(filterBy, value);
     }
 
-
-
-
+    function addNoneValue(list) {
+        list = [...list];
+        list.unshift('None');
+        return list;
+    }
 
     return (
-        <View>
-            <Text><b>SpaceX Launches</b></Text>
+        <div style={{
+            display: "flex",
+            flexDirection: "column",
+            width: "100%",
+            alignItems: "center"
+        }}>
+            <div style={styles.header}>SpaceX Launches</div>
             {showErrorState ? <ErrorState msg={"Please try after some time."} /> : (
                 <>
-                    <DropDownFilter handleFetchLaunchesData={fetchLaunchesData} label="Filter by Year" filterByCol="launch_year" data={[...filterValuesList]} />
-                    <DropDownFilter handleFetchLaunchesData={fetchLaunchesData} label="Filter by Launch success" filterByCol="launch_success" data={["true", "false"]} />
-                    <SearchBox handleFetchLaunchesData={addFilterOnData} />
+                    
 
-                    <DataTable style={styles.container}>
+                    <Text>Filter By</Text>
+
+                    <div style={{ display: "grid", gap: "45px", gridTemplateColumns: "1fr 1fr 1fr" }}>
+                        <DropDownFilter handleFetchLaunchesData={fetchLaunchesData} label="Launch Year" filterByCol="launch_year" data={addNoneValue(filterValuesList)} />
+                        <DropDownFilter handleFetchLaunchesData={fetchLaunchesData} label="Launch Status" filterByCol="launch_success" data={addNoneValue(["true", "false"])} />
+                        <DropDownFilter handleFetchLaunchesData={fetchLaunchesData} label="Upcoming" filterByCol="upcoming" data={addNoneValue(["true", "false"])} />
+                        <div  style={{gridColumnStart: 1, gridColumnEnd: 4}}>
+                        <SearchBox handleFetchLaunchesData={addFilterOnData} />
+                            </div>
+                        {launchesList.map((item, id) => <Card key={id} item={item} />)}
+                    </div>
+
+                   
+
+                    {/* <DataTable style={styles.container}>
                         <DataTable.Header style={styles.tableHeader}>
                             <DataTable.Title>Mission Patch</DataTable.Title>
                             <DataTable.Title>Mission Name</DataTable.Title>
@@ -119,19 +145,31 @@ export default function SignedInExperience() {
 
 
                         ))}
-                    </DataTable>
+                    </DataTable> */}
+
                 </>
             )}
 
-        </View>
+        </div>
+
     )
 }
 const styles = StyleSheet.create({
 
     center: {
-        // display: "flex",
-        justifyContent: "center",
-        alignItems: "center"
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'relative',
+        width: '100%',
+        height: '100%'
+
+
+    },
+
+    header: {
+        color: '#00d2ff',
+        fontSize: 64,
     },
 
     imageSize: {

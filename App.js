@@ -7,12 +7,19 @@ import AppStateWrapper from './AppStateWrapper';
 
 
 import { useDispatch, useSelector } from 'react-redux';
+import { ImageBackground } from 'react-native-web';
 
 function App() {
   return (
-  <Provider store={store}>
-    <AppStateWrapper />
-  </Provider>
+   
+     
+   <Provider store={store}>
+        <AppStateWrapper />
+      </Provider>
+
+  
+
+
 
   );
 
