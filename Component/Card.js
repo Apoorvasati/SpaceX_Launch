@@ -6,11 +6,10 @@ export default function Card({ item }) {
         <>
             <div className="card" style={styles.card} >
 
-                <div className="image"><Image source={{ uri: item.links.mission_patch }} style={styles.imageSize} />
+                <div style={{textAlign: "-webkit-center"}} className="image"><Image source={{ uri: item.links.mission_patch }} style={styles.imageSize} />
                 </div>
-                <div className="missionName">
-                    <Text><br></br></Text>
-                    <Text style={styles.content}><b>Mission Name: </b>{item.mission_name}</Text>
+                <div className="missionName" style={{textAlign: "-webkit-center", padding: "18px"}}>
+                    <Text style={{fontWeight: "bold", fontSize: 30}}>{item.mission_name}</Text>
                 </div>
                 <div className="rocketName">
                     <Text style={styles.content}><b>Rocket Name: </b> {item.rocket.rocket_name}</Text>
@@ -27,13 +26,11 @@ export default function Card({ item }) {
 }
 const styles = StyleSheet.create({
     card: {
-        shadowColor: '#171717',
         alignContent: 'center',
-        shadowOffset: { width: -2, height: 4 },
-        shadowOpacity: 0.2,
-        shadowRadius: 3,
         backgroundColor: 'white',
-        borderRadius: 8,
+        borderRadius: 20,
+        padding: "25px",
+        boxShadow: "5px 8px 9px 5px lightblue"
     },
 
     imageSize: {

@@ -12,13 +12,19 @@ function DropDownFilter({ data, label, filterByCol, handleFetchLaunchesData }) {
         handleFetchLaunchesData(filterByCol, val);
         console.log(val);
     }
+    const dataList = data.map(element => {
+        return {
+            'label': element,
+            'value':  element
+        }
+    });
     return (
         <View>
             
             <Text>{label}</Text>
             <SelectList style={styles.dropdownBox}
         setSelected={(val) => onChangeHandler(val)} 
-        data={data}
+        data={dataList}
         save="value"
     />
         </View>

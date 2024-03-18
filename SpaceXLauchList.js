@@ -46,20 +46,20 @@ export default function SpaceXLauchList() {
         if (filterBy && value) {
             let tempFilterInfo = JSON.parse(JSON.stringify(filterInfo));
             if (value == 'None') {
-            delete tempFilterInfo[filterBy];
+                delete tempFilterInfo[filterBy];
             }
             else{
                 tempFilterInfo[filterBy] = value;
             }
             setFilterInfo(tempFilterInfo)
-            
-                for (let i = 0; i < Object.keys(tempFilterInfo).length; i++) {
-                    if (i == 0)
-                        api += '?'
-                    else
-                        api += '&'
-                    api += Object.keys(tempFilterInfo)[i] + '=' + tempFilterInfo[Object.keys(tempFilterInfo)[i]];
-                }
+
+            for (let i = 0; i < Object.keys(tempFilterInfo).length; i++) {
+                if (i == 0)
+                    api += '?'
+                else
+                    api += '&'
+                api += Object.keys(tempFilterInfo)[i] + '=' + tempFilterInfo[Object.keys(tempFilterInfo)[i]];
+            }
         }
 
         axios.get(api)
@@ -110,21 +110,21 @@ export default function SpaceXLauchList() {
             <div style={styles.header}>SpaceX Launches</div>
             {showErrorState ? <ErrorState msg={"Please try after some time."} /> : (
                 <>
-                    
+
 
                     <Text>Filter By</Text>
 
-                    <div style={{ display: "grid", gap: "45px", gridTemplateColumns: "1fr 1fr 1fr" }}>
+                    <div style={{ display: "grid", gap: "45px", gridTemplateColumns: "1fr 1fr 1fr", margin: "25px" }}>
                         <DropDownFilter handleFetchLaunchesData={fetchLaunchesData} label="Launch Year" filterByCol="launch_year" data={addNoneValue(filterValuesList)} />
                         <DropDownFilter handleFetchLaunchesData={fetchLaunchesData} label="Launch Status" filterByCol="launch_success" data={addNoneValue(["true", "false"])} />
                         <DropDownFilter handleFetchLaunchesData={fetchLaunchesData} label="Upcoming" filterByCol="upcoming" data={addNoneValue(["true", "false"])} />
-                        <div  style={{gridColumnStart: 1, gridColumnEnd: 4}}>
-                        <SearchBox handleFetchLaunchesData={addFilterOnData} />
-                            </div>
+                        <div style={{ gridColumnStart: 1, gridColumnEnd: 4 }}>
+                            <SearchBox handleFetchLaunchesData={addFilterOnData} />
+                        </div>
                         {launchesList.map((item, id) => <Card key={id} item={item} />)}
                     </div>
 
-                   
+
 
                     {/* <DataTable style={styles.container}>
                         <DataTable.Header style={styles.tableHeader}>
