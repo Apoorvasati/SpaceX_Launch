@@ -114,7 +114,7 @@ export default function SpaceXLauchList() {
 
                     <Text>Filter By</Text>
 
-                    <div style={{ display: "grid", gap: "45px", gridTemplateColumns: "1fr 1fr 1fr", margin: "25px" }}>
+                    <div style={{ display: "grid", gap: "45px", gridTemplateColumns: "1fr 1fr 1fr", margin: "25px", width:"95%"  }}>
                         <DropDownFilter handleFetchLaunchesData={fetchLaunchesData} label="Launch Year" filterByCol="launch_year" data={addNoneValue(filterValuesList)} />
                         <DropDownFilter handleFetchLaunchesData={fetchLaunchesData} label="Launch Status" filterByCol="launch_success" data={addNoneValue(["true", "false"])} />
                         <DropDownFilter handleFetchLaunchesData={fetchLaunchesData} label="Upcoming" filterByCol="upcoming" data={addNoneValue(["true", "false"])} />
