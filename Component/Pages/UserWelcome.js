@@ -11,16 +11,20 @@ export default function UserWelcome(props) {
     const dispatch = useDispatch();
     const currentUser = useSelector(state => state.auth.currentUser);
 
-    function handleSignout(){
-        dispatch(logout());  
+    function handleSignout() {
+        dispatch(logout());
     }
     return (
         // <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <div style={{    width: "-webkit-fill-available", overflow: "auto"}}>
-                <Text>Welcome {currentUser.username}!!</Text>
-                <button onClick={handleSignout}>Sign out</button>
-                <SpaceXLauchList/>
-            </div> 
+        <div style={{ width: "-webkit-fill-available", overflow: "auto" }}>
+            <div style={{padding: '10px', float: 'right'}}>
+                <Text style={{ fontSize: 25 }}>Welcome {currentUser.username}</Text>  
+                <div><button style={{float: 'right'}}onClick={handleSignout}>Sign out</button></div>  
+            </div>
+            
+            <SpaceXLauchList />
+        </div>
+
     );
 }
 const styles = StyleSheet.create({
