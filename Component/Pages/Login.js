@@ -16,7 +16,7 @@ const Login = (props) => {
        
         // You can add further logic here like navigation
         alert("Logged In");
-        props.navigation.navigate("UserWelcome")
+        props.navigation.navigate("Home")
     }
 
     const [username, setUsername] = useState('');

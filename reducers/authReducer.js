@@ -4,7 +4,7 @@ const initialState = {
   currentUser: null
 }
 function updateSessionStore(data) {
-  sessionStorage.setItem("users_date", JSON.stringify(data));
+  sessionStorage.setItem("users_data", JSON.stringify(data));
 }
 const authReducer = (state = initialState, action) => {
   switch (action.type) {

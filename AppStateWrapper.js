@@ -12,23 +12,8 @@ import UserWelcome from './Component/Pages/UserWelcome';
 import { login } from './actions/authActions.js';
 import { updateRegistrationsOnRefresh } from './actions/authActions.js';
 export default function AppStateWrapper() {
-    const dispatch = useDispatch();
-    const [currentUser, setCurrentUser] = useState(null);
+ 
 
-    useEffect(() => {
-        let userRegistrationStore = JSON.parse(sessionStorage.getItem('users_date'));
-
-        dispatch(updateRegistrationsOnRefresh(userRegistrationStore));
-        let alreadyLoggedinUser = userRegistrationStore.currentUser;
-        if (alreadyLoggedinUser) {
-            dispatch(login(alreadyLoggedinUser));
-            setCurrentUser(alreadyLoggedinUser);
-           
-        }
-    }, []);
-    console.log(currentUser)
-    // setCurrentUser(useSelector(state => state.auth.currentUser));
-    // setCurrentUser(alreadyLoggedinUser);
     
     const Stack = createNativeStackNavigator();
     return (
@@ -54,7 +39,7 @@ export default function AppStateWrapper() {
                 
                     <NavigationContainer>
                         <Stack.Navigator screenOptions={{ headerShown: false }}>
-                        {currentUser ? ( <Stack.Screen name="UserWelcome" component={UserWelcome} />) :(<></>)}
+                        {/* {currentUser ? ( <Stack.Screen name="UserWelcome" component={UserWelcome} />) :(<></>)} */}
                             <Stack.Screen name="Home" component={HomePage} />
                             <Stack.Screen name="Signup" component={Signup} />
                             <Stack.Screen name="Login" component={Login} />

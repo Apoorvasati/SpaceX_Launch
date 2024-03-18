@@ -12,8 +12,7 @@ export default function UserWelcome(props) {
     const currentUser = useSelector(state => state.auth.currentUser);
 
     function handleSignout(){
-        dispatch(logout());
-        props.navigation.navigate("Home")   
+        dispatch(logout());  
     }
     return (
         // <ScrollView contentContainerStyle={styles.scrollContainer}>
